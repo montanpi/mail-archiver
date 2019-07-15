@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import sortBy from './utils/sortBy'
-
+import { sortBy } from './utils/utils'
+// TODO format dates based on locale
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -21,10 +21,10 @@ export default new Vuex.Store({
           date_lte: to
         }
       })
-        .then(res => res.data)
-        .then(emails => {
-          commit('setMail', emails)
+        .then(res => {
+          commit('setMail', res.data)
         })
+        .catch(err => { window.alert(err) })
     }
   },
   mutations: {
@@ -38,22 +38,23 @@ export default new Vuex.Store({
       }
       if (newSort !== state.sort) {
         state.sort = newSort
+        state.order = 'asc'
       }
       switch (state.sort) {
         case 'from':
-          Vue.set(this.state, 'emails', sortBy('from', state.sort, state.emails))
+          Vue.set(state, 'emails', sortBy('from', state.order, state.emails))
           break
         case 'to':
-          Vue.set(this.state, 'emails', sortBy('to', state.sort, state.emails))
+          Vue.set(state, 'emails', sortBy('to', state.order, state.emails))
           break
         case 'subject':
-          Vue.set(this.state, 'emails', sortBy('subject', state.sort, state.emails))
+          Vue.set(state, 'emails', sortBy('subject', state.order, state.emails))
           break
         case 'date':
-          Vue.set(this.state, 'emails', sortBy('date', state.sort, state.emails))
+          Vue.set(state, 'emails', sortBy('date', state.order, state.emails))
           break
         case 'id':
-          Vue.set(this.state, 'emails', sortBy('id', state.sort, state.emails))
+          Vue.set(state, 'emails', sortBy('id', state.order, state.emails))
           break
       }
     },
