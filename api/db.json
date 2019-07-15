@@ -9,7 +9,7 @@
       "subject": "[info:888] ABC EQUIPMENT COMPANY",
       "body": "Body of email with id 1",
       "attachment": false,
-      "date": "2019-12-31T00:00:00.000Z"
+      "date": "2019-12-31T09:00:00.000Z"
     },
     {
       "id": 2,
@@ -20,7 +20,7 @@
       "subject": "I love you",
       "body": "Body of email with id 2",
       "attachment": true,
-      "date": "2019-12-31T00:00:01.000Z"
+      "date": "2019-12-31T09:01:00.000Z"
     },
     {
       "id": 3,
@@ -31,7 +31,7 @@
       "subject": "Workplace Summary for sample, Inc.:Jun 2 - Jun 9",
       "body": "Body of email with id 3",
       "attachment": true,
-      "date": "2020-01-01T00:00:00.000Z"
+      "date": "2020-01-01T09:00:00.000Z"
     },
     {
       "id": 4,
@@ -42,7 +42,7 @@
       "subject": "Re:[Github] Brush-up on loading animation",
       "body": "Body of email with id 4",
       "attachment": false,
-      "date": "2020-01-01T00:01:00.000Z"
+      "date": "2020-01-01T09:01:00.000Z"
     },
     {
       "id": 5,
@@ -53,7 +53,7 @@
       "subject": "[dev] Postfix 3.1.12/3.2.9/3.3.4/3.4.5",
       "body": "Body of email with id 5",
       "attachment": false,
-      "date": "2020-01-01T00:02:00.000Z"
+      "date": "2020-01-01T09:02:00.000Z"
     },
     {
       "id": 6,
@@ -66,7 +66,7 @@
       "subject": "[Github] Logout page",
       "body": "Body of email with id 6",
       "attachment": false,
-      "date": "2020-01-01T00:03:00.000Z"
+      "date": "2020-01-01T09:03:00.000Z"
     },
     {
       "id": 7,
@@ -78,18 +78,19 @@
       "subject": "[Github] Logout page",
       "body": "Body of email with id 7",
       "attachment": false,
-      "date": "2020-01-01T00:04:00.000Z"
+      "date": "2020-01-01T09:04:00.000Z"
     },
     {
       "id": 8,
       "from": "ccc.@example.com",
       "to": [
-        "xxx@example.com, www@example.com"
+        "xxx@example.com",
+        "www@example.com"
       ],
       "subject": "Happy New Year! Greetings for the New Year.",
       "body": "Body of email with id 8",
       "attachment": true,
-      "date": "2020-01-03T00:00:00.000Z"
+      "date": "2020-01-03T09:00:00.000Z"
     },
     {
       "id": 9,
@@ -100,7 +101,7 @@
       "subject": "[web:333] \"Web Contact\"",
       "body": "Body of email with id 9",
       "attachment": false,
-      "date": "2020-01-03T00:10:00.000Z"
+      "date": "2020-01-03T09:10:00.000Z"
     },
     {
       "id": 10,
@@ -111,7 +112,7 @@
       "subject": "[ HR-888 ] Notice of official announcement",
       "body": "Body of email with id 10",
       "attachment": false,
-      "date": "2020-01-03T00:20:00.000Z"
+      "date": "2020-01-03T09:20:00.000Z"
     }
   ]
 }

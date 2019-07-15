@@ -1,6 +1,7 @@
 {
   "name": "mail-archiver",
   "version": "0.1.0",
+  "author": "Pietro Montanari",
   "license": "MIT",
   "private": true,
   "scripts": {
