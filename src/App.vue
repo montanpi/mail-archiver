@@ -1,7 +1,11 @@
 <template>
   <div id="app">
-    <DateIntervalForm />
-    <SearchResult />
+    <header>
+      <DateIntervalForm />
+    </header>
+    <main>
+      <SearchResult />
+    </main>
   </div>
 </template>
 
@@ -19,12 +23,21 @@ export default {
 </script>
 
 <style lang="scss">
+@import "./scss/variables.scss";
+@import "./scss/functions.scss";
+body {
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  margin: 0;
+}
 #app {
-  // font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  // font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: sans-serif;
+}
+header {
+  margin: em(28) em(28) 0 em(28);
+}
+main {
+  margin-top: em(25);
 }
 </style>

@@ -90,7 +90,7 @@
       "subject": "Happy New Year! Greetings for the New Year.",
       "body": "Body of email with id 8",
       "attachment": true,
-      "date": "2020-01-03T09:00:00.000Z"
+      "date": "2020-01-02T15:00:00.000Z"
     },
     {
       "id": 9,
@@ -101,7 +101,7 @@
       "subject": "[web:333] \"Web Contact\"",
       "body": "Body of email with id 9",
       "attachment": false,
-      "date": "2020-01-03T09:10:00.000Z"
+      "date": "2020-01-02T15:10:00.000Z"
     },
     {
       "id": 10,
@@ -112,7 +112,7 @@
       "subject": "[ HR-888 ] Notice of official announcement",
       "body": "Body of email with id 10",
       "attachment": false,
-      "date": "2020-01-03T09:20:00.000Z"
+      "date": "2020-01-02T15:20:00.000Z"
     }
   ]
 }

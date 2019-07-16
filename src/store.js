@@ -28,7 +28,7 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    sort (state, newSort) {
+    changeSort (state, newSort) {
       if (newSort === state.sort) {
         if (state.order === 'asc') {
           state.order = 'desc'
