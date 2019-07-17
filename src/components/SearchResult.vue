@@ -38,8 +38,7 @@
           <div
             v-if="email.to.length > 1"
             class="grid-badge"
-            style="color: red"
-          >{{ formatBadge(email.to) }}</div>
+          ><span>{{ formatBadge(email.to) }}</span></div>
           <div class="grid-subject">{{ email.subject }}</div>
           <div class="grid-date">
             <img v-if="email.attachment" class="date-attachment" src="../assets/icon_clip.svg" alt="icon_clip" />
@@ -110,7 +109,7 @@ export default {
   margin-left: em(26);
   color: $headings-font-color;
   font-size: em(17.3);
-  font-weight: bold;
+  font-weight: 600;
   letter-spacing: em(0.5);
   span {
     font-size: em(23);
@@ -126,7 +125,7 @@ export default {
   background: $background-color;
   height: em(52);
   border-bottom: em(2) solid $border-color;
-  font-weight: bold;
+  font-weight: 600;
   color: $headings-font-color;
   font-size: em(16.2);
   ul {
@@ -174,7 +173,7 @@ export default {
   width: em(520);
   height: em(126);
   border-bottom: em(1) solid $border-color;
-  grid-template-columns: em(39) em(324) em(22) em(102);
+  grid-template-columns: em(39) em(324) em(80) em(44);
   grid-template-rows: em(30) em(30) em(38);
   padding: em(14) em(16) em(12) em(16);
   &:last-child {
@@ -193,7 +192,7 @@ export default {
   grid-area: 1 / 2 / 1 / 3;
   padding: em(2) 0;
   font-size: em(18.9);
-  font-weight: bold;
+  font-weight: 600;
   color: $selected-font-color;
 }
 .grid-to {
@@ -201,11 +200,29 @@ export default {
   padding: em(2) 0;
   font-size: em(18.9);
   white-space: nowrap;
+  word-wrap: break-word;
   overflow: hidden;
   text-overflow: ellipsis;
+  &::after {
+    content: "...";
+  }
 }
 .grid-badge {
+  position: relative;
   grid-area: 2 / 4 / 2 / 5;
+  background-color: $badge-color;
+  padding: em(1);
+  border-radius: em(4);
+  margin: em(3) em(8);
+  height: em(18);
+  width: em(26);
+  span {
+    position: absolute;
+    top: 0;
+    right: em(4);
+    color: white;
+    font-weight: 600;
+  }
 }
 .grid-subject {
   grid-area: 3 / 1 / 3 / 5;
