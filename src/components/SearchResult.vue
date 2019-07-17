@@ -4,7 +4,7 @@
       Results:
       <span>{{ emails.length }}</span>mail(s)
     </div>
-    <div v-if="emails.length" class="email-container">
+    <div v-if="emails.length" class="container">
       <div class="email-menu">
         <ul>
           <li :class="{ order: sort == 'from', desc: order == 'desc' }" @click="changeSort('from')">
@@ -13,7 +13,10 @@
           <li :class="{ order: sort == 'to', desc: order == 'desc' }" @click="changeSort('to')">
             <span>To</span>
           </li>
-          <li :class="{ order: sort == 'subject', desc: order == 'desc' }" @click="changeSort('subject')">
+          <li
+            :class="{ order: sort == 'subject', desc: order == 'desc' }"
+            @click="changeSort('subject')"
+          >
             <span>Subject</span>
           </li>
           <li :class="{ order: sort == 'date', desc: order == 'desc' }" @click="changeSort('date')">
@@ -21,25 +24,28 @@
           </li>
         </ul>
       </div>
-      <div>
-        <ul>
-          <li v-for="email in emails" :key="email.id">
-            <input
-              type="checkbox"
-              v-bind:checked="ids.indexOf(email.id) !== -1"
-              @click="toggleSelected(email.id)"
-            />
-            {{ email.id }}
-            {{ email.from }}
-            {{ formatRecipients(email.to) }}
-            <span
-              v-if="email.to.length > 1"
-              style="color: red"
-            >{{ formatBadge(email.to) }}</span>
-            <span style="color: blue">{{ email.subject }}</span>
-            {{ formatDateWrapper(email.date) }}
-          </li>
-        </ul>
+      <div class="email-items">
+        <div class="email-grid" v-for="email in emails" :key="email.id">
+          <input
+            class="grid-checkbox"
+            type="checkbox"
+            v-bind:checked="ids.indexOf(email.id) !== -1"
+            @click="toggleSelected(email.id)"
+          />
+          <span class="grid-icon"></span>
+          <span class="grid-from">{{ email.from }}</span>
+          <span class="grid-to">{{ formatRecipients(email.to) }}</span>
+          <span
+            v-if="email.to.length > 1"
+            class="grid-badge"
+            style="color: red"
+          >{{ formatBadge(email.to) }}</span>
+          <span class="grid-subject">{{ email.subject }}</span>
+          <div class="grid-date">
+            <img v-if="email.attachment" src="../assets/icon_clip.svg" alt="icon_clip">
+            <span>{{ formatDateWrapper(email.date) }}</span>
+          </div>
+        </div>
       </div>
       <footer v-show="ids.length">
         <button type="button" @click="showModal = true">inspect</button>
@@ -109,7 +115,7 @@ export default {
     font-size: em(23);
   }
 }
-.email-container {
+.container {
   margin-top: em(6);
   border-top: em(2) solid $border-color;
 }
@@ -125,7 +131,6 @@ export default {
   ul {
     display: flex;
     margin: 0;
-    // padding: 18px 28px 14px 28px;
     padding: em(17) 0 0 em(28);
     list-style: none;
     li {
@@ -151,8 +156,8 @@ export default {
       content: "";
       display: inline-block;
       vertical-align: middle;
-      width: em(19);
-      height: em(6);
+      width: em(18);
+      height: em(7);
     }
   }
   .desc {
@@ -162,4 +167,68 @@ export default {
     }
   }
 }
+  .email-grid {
+    display: grid;
+    box-sizing: border-box;
+    width: 520px;
+    height: 126px;
+    border-bottom: em(1) solid $border-color;
+    grid-template-columns: em(39) em(324) em(22) em(102);
+    grid-template-rows: em(30) em(30) em(38);
+    padding: em(14) em(16) em(12) em(16);
+  }
+  .grid-checkbox {
+    display: none;
+  }
+  .grid-icon {
+    grid-area: 1 / 1 / 3 / 2;
+    background: url("../assets/icon_mail_sp.svg") left em(13) center / em(16) no-repeat;
+  }
+  .grid-from {
+    grid-area: 1 / 2 / 1 / 3;
+    padding: em(2) 0;
+    font-size: em(18.9);
+    font-weight: bold;
+    color: $selected-font-color;
+  }
+  .grid-to {
+    grid-area: 2 / 2 / 2 / 4;
+    padding: em(2) 0;
+    font-size: em(18.9);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .grid-badge {
+    grid-area: 2 / 4 / 2 / 5;
+  }
+  .grid-subject {
+    grid-area: 3 / 1 / 3 / 5;
+    padding: em(3) 0;
+    font-size: em(22);
+    padding-left: em(8);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .grid-date {
+    grid-area: 1 / 3 / 1 / 5;
+    span {
+      padding: em(4) 0;
+      font-size: em(17.4);
+    }
+    img {
+      width: em(17.5);
+      height: auto;
+    }
+    &::after {
+      background: url("../assets/icon_arrow02.svg") right no-repeat;
+      background-size: contain;
+      content: "";
+      display: inline-block;
+      vertical-align: middle;
+      width: em(12);
+      height: em(8);
+    }
+  }
 </style>

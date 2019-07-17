@@ -27,12 +27,12 @@ export default {
 @import "./scss/functions.scss";
 body {
   line-height: 1.25;
-  text-overflow: ellipsis;
   margin: 0;
 }
 #app {
   // font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-family: sans-serif;
+  color: $font-color;
 }
 header {
   margin: em(28) em(28) 0 em(28);
