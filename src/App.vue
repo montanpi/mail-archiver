@@ -40,4 +40,9 @@ header {
 main {
   margin-top: em(25);
 }
+@media screen and (min-width: 1000px) {
+  header {
+    margin: 2.8% 5% 0 5%;
+  }
+}
 </style>
