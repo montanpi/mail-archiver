@@ -61,21 +61,23 @@
       "to": [
         "sss@example.com",
         "rrr@example.com",
-        "ttt@example.com"
+        "qqq@example.com",
+        "ppp@example.com"
       ],
-      "subject": "[Github] Logout page",
+      "subject": "[HR-887(Revised: Office Expansion Project Team)] Notice of official announcement",
       "body": "Body of email with id 6",
       "attachment": false,
       "date": "2020-01-01T09:03:00.000Z"
     },
     {
       "id": 7,
-      "from": "eee@example.com",
+      "from": "ddd@example.com",
       "to": [
-        "vvv@example.com",
-        "www@example.com"
+        "vvv.vvv@example.com",
+        "uuu@example.com",
+        "ttt@example.com"
       ],
-      "subject": "[Github] Logout page",
+      "subject": "[ HR-888 ] Notice of official announcement",
       "body": "Body of email with id 7",
       "attachment": false,
       "date": "2020-01-01T09:04:00.000Z"
@@ -85,7 +87,7 @@
       "from": "ccc.@example.com",
       "to": [
         "xxx@example.com",
-        "www@example.com"
+        "www.www@example.com"
       ],
       "subject": "Happy New Year! Greetings for the New Year.",
       "body": "Body of email with id 8",
