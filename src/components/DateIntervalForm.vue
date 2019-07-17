@@ -42,6 +42,8 @@ input {
   width: em(182);
   padding-top: em(2);
   padding-left: em(51);
+  padding-bottom: 0;
+  padding-right: 0;
   font: inherit;
   font-size: em(20);
   letter-spacing: em(0.2);
@@ -72,6 +74,11 @@ button {
   }
   img {
     width: em(20);
+  }
+}
+@media screen and (min-width: 1000px) {
+  input {
+    padding-right: 1.6%;
   }
 }
 </style>

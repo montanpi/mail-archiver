@@ -52,7 +52,11 @@
       </footer>
       <inspect v-if="showModal" @close="showModal = false" :selected-emails="selected" />
     </div>
-    <div v-else>No results</div>
+    <div v-else class="container">
+      <div class="logo-container">
+        <img src="../assets/logo.png" alt="logo">
+      </div>
+    </div>
   </div>
 </template>
 
@@ -118,6 +122,14 @@ export default {
 .container {
   margin-top: em(6);
   border-top: em(2) solid $border-color;
+}
+.logo-container {
+  min-height: 80vh;
+  padding: 12.2% 44.6%;
+  img {
+    width: 112%;
+    height: auto;
+  }
 }
 .email-menu {
   margin: 0;
@@ -248,6 +260,14 @@ export default {
     width: auto;
     height: em(18);
     padding: em(8);
+  }
+}
+@media screen and (min-width: 1000px) {
+  .search-results {
+    margin-left: 5%;
+  }
+  .container {
+    margin: 0.5% 5% 0 5%;
   }
 }
 </style>
