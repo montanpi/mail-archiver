@@ -4,7 +4,7 @@
       Results:
       <span>{{ emails.length }}</span>mail(s)
     </div>
-    <div v-if="emails.length" class="container">
+    <div v-if="emails.length" :class="{ 'inspect-margin': ids.length }" class="container">
       <div class="email-menu">
         <ul>
           <li :class="{ order: sort == 'from', desc: order == 'desc' }" @click="changeSort('from')">
@@ -24,32 +24,40 @@
           </li>
         </ul>
       </div>
-      <div class="email-items">
-        <div class="email-grid" v-for="email in emails" :key="email.id">
-          <input
-            class="grid-checkbox"
-            type="checkbox"
-            v-bind:checked="ids.indexOf(email.id) !== -1"
-            @click="toggleSelected(email.id)"
-          />
-          <div class="grid-icon"></div>
-          <div class="grid-from">{{ email.from }}</div>
-          <div class="grid-to">{{ formatRecipients(email.to) }}</div>
-          <div v-if="email.to.length > 1" class="grid-badge">
-            <span>{{ formatBadge(email.to) }}</span>
-          </div>
-          <div class="grid-subject">{{ email.subject }}</div>
-          <div class="grid-date">
-            <svg v-if="email.attachment" class="date-attachment" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13.93083 15"><title>icon_clip</title><path class="a" d="M6.799,3.6254A2.30522,2.30522,0,1,0,3.56718,6.85622l4.304,4.304a.5222.5222,0,0,0,.7385-.7385l-4.304-4.304c-.53586-.53586-.87743-1.33808-.23084-1.98466.64553-.64659,1.4488-.304,1.98466.23189L11.032,9.3364c1.90632,1.90841,2.38159,2.78793,1.24615,3.92441-1.149,1.148-2.367.86385-4.20121-.96935L2.367,6.57941C1.1741,5.38653.33845,3.43842,1.90633,1.87159c1.86141-1.86141,3.98708-.03134,4.59293.57555l5.11038,5.11142a.5222.5222,0,0,0,.7385-.7385L7.23776,1.70864C5.18625-.34288,2.86-.56223,1.16678,1.13308c-1.711,1.71-1.5261,4.196.4617,6.18484l5.711,5.711C7.96726,13.6567,9.31161,15,10.85756,15a3.01214,3.01214,0,0,0,2.16014-1.00173c2.07554-2.07658.15564-3.99857-1.24616-5.40141Z"/></svg>
-            <span>{{ formatDateWrapper(email.date) }}</span>
-            <img class="date-arrow" src="../assets/icon_arrow02.svg" alt="icon_arrow02" />
-          </div>
+      <div class="email-grid" v-for="email in emails" :key="email.id">
+        <input
+          class="grid-checkbox"
+          type="checkbox"
+          v-bind:checked="ids.indexOf(email.id) !== -1"
+          @click="toggleSelected(email.id)"
+        />
+        <div class="grid-icon"></div>
+        <div class="grid-from">{{ email.from }}</div>
+        <div class="grid-to">{{ formatRecipients(email.to) }}</div>
+        <div v-if="email.to.length > 1" class="grid-badge">
+          <span>{{ formatBadge(email.to) }}</span>
+        </div>
+        <div class="grid-subject">{{ email.subject }}</div>
+        <div class="grid-date">
+          <svg
+            v-if="email.attachment"
+            class="date-attachment"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 13.93083 15"
+          >
+            <title>icon_clip</title>
+            <path
+              class="a"
+              d="M6.799,3.6254A2.30522,2.30522,0,1,0,3.56718,6.85622l4.304,4.304a.5222.5222,0,0,0,.7385-.7385l-4.304-4.304c-.53586-.53586-.87743-1.33808-.23084-1.98466.64553-.64659,1.4488-.304,1.98466.23189L11.032,9.3364c1.90632,1.90841,2.38159,2.78793,1.24615,3.92441-1.149,1.148-2.367.86385-4.20121-.96935L2.367,6.57941C1.1741,5.38653.33845,3.43842,1.90633,1.87159c1.86141-1.86141,3.98708-.03134,4.59293.57555l5.11038,5.11142a.5222.5222,0,0,0,.7385-.7385L7.23776,1.70864C5.18625-.34288,2.86-.56223,1.16678,1.13308c-1.711,1.71-1.5261,4.196.4617,6.18484l5.711,5.711C7.96726,13.6567,9.31161,15,10.85756,15a3.01214,3.01214,0,0,0,2.16014-1.00173c2.07554-2.07658.15564-3.99857-1.24616-5.40141Z"
+            />
+          </svg>
+          <span>{{ formatDateWrapper(email.date) }}</span>
+          <img class="date-arrow" src="../assets/icon_arrow02.svg" alt="icon_arrow02" />
         </div>
       </div>
-      <footer v-show="ids.length">
-        <button type="button" @click="showModal = true">inspect</button>
-      </footer>
-      <inspect v-if="showModal" @close="showModal = false" :selected-emails="selected" />
+      <div class="inspect-container" v-show="ids.length">
+        <inspect @close="resetIds" :selected-emails="selected" />
+      </div>
     </div>
     <div v-else class="container">
       <div class="logo-container">
@@ -71,8 +79,7 @@ export default {
   },
   data () {
     return {
-      ids: [],
-      showModal: false
+      ids: []
     }
   },
   computed: {
@@ -100,6 +107,9 @@ export default {
     toggleSelected (id) {
       const idx = this.ids.indexOf(id)
       idx === -1 ? this.ids.push(id) : this.ids.splice(idx, 1)
+    },
+    resetIds () {
+      this.ids = []
     }
   }
 }
@@ -109,6 +119,19 @@ export default {
 @import "../scss/_variables.scss";
 @import "../scss/_functions.scss";
 @import "../scss/_mixins.scss";
+.inspect-container {
+  position: fixed;
+  overflow-y: auto;
+  bottom: 0;
+  height: 40vh;
+  width: 91.5%;
+  z-index: 9999;
+  background-color: $inspect-background-color;
+  border-top: em(2) solid $border-color;
+}
+.inspect-margin {
+  margin-bottom: 40vh !important;
+}
 .search-results {
   margin-left: em(26);
   color: $headings-font-color;
@@ -184,7 +207,7 @@ export default {
 .email-grid {
   display: grid;
   box-sizing: border-box;
-  width: em(520);
+  width: auto;
   height: em(126);
   border-bottom: em(1) solid $border-color;
   grid-template-columns: em(39) em(324) em(80) em(44);
@@ -258,23 +281,23 @@ export default {
 }
 @media screen and (min-width: 1000px) {
   .search-results {
-    margin-left: 5%;
+    margin-left: 4.9%;
   }
   .container {
-    margin: 0.5% 3.8% 0 5%;
+    margin: 0.5% 4.9% 0 4.9%;
   }
   .email-menu {
     ul {
-      padding-left: 1%;
+      padding-left: 1.1%;
       li {
         &:nth-child(1) {
-          width: 15.8%;
+          width: 15.7%;
         }
         &:nth-child(2) {
-          width: 26.7%;
+          width: 26.8%;
         }
         &:nth-child(3) {
-          width: 48.5%;
+          width: 48.6%;
         }
         &:nth-child(4) {
           width: auto;
@@ -291,7 +314,7 @@ export default {
   .email-grid {
     width: 100%;
     height: em(55);
-    grid-template-columns: 0 15.8% 20% 6.2% 47% auto;
+    grid-template-columns: 0 15.8% 20.3% 6.2% 47% auto;
     grid-template-rows: em(55);
     padding: em(10) em(16) em(12) em(16);
     &:hover {
@@ -340,7 +363,7 @@ export default {
     span {
       position: absolute;
       left: em(32);
-      top: em(4);
+      top: em(2.8);
       color: $font-color;
     }
     .date-arrow {
@@ -348,8 +371,8 @@ export default {
     }
     .date-attachment {
       width: em(15.5);
-      height: em(20);
-      padding: em(2.5) 0 0 em(3);
+      height: em(19);
+      padding: em(2) 0 0 em(1.5);
     }
   }
 }
