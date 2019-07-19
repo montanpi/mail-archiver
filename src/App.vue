@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <header>
-      <DateIntervalForm />
+      <dateIntervalForm />
     </header>
     <main>
-      <SearchResult />
+      <searchResult />
     </main>
   </div>
 </template>
@@ -34,17 +34,16 @@ body {
   font-family: sans-serif;
   color: $font-color;
   max-width: 1550px;
-  margin: 0 auto;
 }
 header {
-  margin: em(28) em(28) 0 em(28);
+  margin: em(28) 0 0 em(28);
 }
 main {
   margin-top: em(25);
 }
 @media screen and (min-width: 1000px) {
   header {
-    margin: 2.8% 5% 0 5%;
+    margin: em(42.1) 0 0 5%;
   }
 }
 </style>

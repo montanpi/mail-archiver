@@ -35,7 +35,6 @@ export default {
 @import "../scss/_functions.scss";
 form {
   display: flex;
-  // grid-column: 1;
 }
 input {
   height: em(38);
@@ -47,7 +46,7 @@ input {
   font: inherit;
   font-size: em(20);
   letter-spacing: em(0.2);
-  border-radius: em(8);
+  border-radius: em(7);
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   border: em(1) solid $border-color;
@@ -62,7 +61,7 @@ button {
   padding-left: em(15);
   padding-right: em(18);
   background: $background-color;
-  border-radius: em(8);
+  border-radius: em(7);
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   font-size: em(20);
@@ -76,7 +75,7 @@ button {
 }
 @media screen and (min-width: 1000px) {
   input {
-    padding-right: 1.6%;
+    padding-right: 1.4%;
   }
 }
 </style>
