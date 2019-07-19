@@ -33,6 +33,8 @@ body {
   // font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-family: sans-serif;
   color: $font-color;
+  max-width: 1550px;
+  margin: 0 auto;
 }
 header {
   margin: em(28) em(28) 0 em(28);
