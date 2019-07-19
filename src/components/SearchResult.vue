@@ -35,13 +35,17 @@
           <div class="grid-icon"></div>
           <div class="grid-from">{{ email.from }}</div>
           <div class="grid-to">{{ formatRecipients(email.to) }}</div>
-          <div
-            v-if="email.to.length > 1"
-            class="grid-badge"
-          ><span>{{ formatBadge(email.to) }}</span></div>
+          <div v-if="email.to.length > 1" class="grid-badge">
+            <span>{{ formatBadge(email.to) }}</span>
+          </div>
           <div class="grid-subject">{{ email.subject }}</div>
           <div class="grid-date">
-            <img v-if="email.attachment" class="date-attachment" src="../assets/icon_clip.svg" alt="icon_clip" />
+            <img
+              v-if="email.attachment"
+              class="date-attachment"
+              src="../assets/icon_clip.svg"
+              alt="icon_clip"
+            />
             <span>{{ formatDateWrapper(email.date) }}</span>
             <img class="date-arrow" src="../assets/icon_arrow02.svg" alt="icon_arrow02" />
           </div>
@@ -54,7 +58,7 @@
     </div>
     <div v-else class="container">
       <div class="logo-container">
-        <img src="../assets/logo.png" alt="logo">
+        <img src="../assets/logo.png" alt="logo" />
       </div>
     </div>
   </div>
@@ -109,6 +113,7 @@ export default {
 <style lang="scss" scoped>
 @import "../scss/_variables.scss";
 @import "../scss/_functions.scss";
+@import "../scss/_mixins.scss";
 .search-results {
   margin-left: em(26);
   color: $headings-font-color;
@@ -124,10 +129,11 @@ export default {
   border-top: em(2) solid $border-color;
 }
 .logo-container {
-  min-height: 80vh;
-  padding: 12.2% 44.6%;
+  padding-top: 12%;
   img {
-    width: 112%;
+    display: block;
+    margin: 0 auto;
+    width: 12%;
     height: auto;
   }
 }
@@ -161,7 +167,6 @@ export default {
     }
   }
   .order {
-    color: $selected-font-color;
     &::after {
       background: url("../assets/icon_arrow01.svg") right no-repeat;
       background-size: contain;
@@ -170,12 +175,14 @@ export default {
       vertical-align: middle;
       width: em(18);
       height: em(7);
+      -webkit-transform: scaleY(-1);
+      transform: scaleY(-1);
     }
   }
   .desc {
     &::after {
-      -webkit-transform: scaleY(-1);
-      transform: scaleY(-1);
+      -webkit-transform: scaleY(1);
+      transform: scaleY(1);
     }
   }
 }
@@ -188,9 +195,6 @@ export default {
   grid-template-columns: em(39) em(324) em(80) em(44);
   grid-template-rows: em(30) em(30) em(38);
   padding: em(14) em(16) em(12) em(16);
-  &:last-child {
-    border-bottom: 0;
-  }
 }
 .grid-checkbox {
   display: none;
@@ -205,16 +209,13 @@ export default {
   padding: em(2) 0;
   font-size: em(18.9);
   font-weight: 600;
-  color: $selected-font-color;
 }
 .grid-to {
   grid-area: 2 / 2 / 2 / 4;
   padding: em(2) 0;
   font-size: em(18.9);
-  white-space: nowrap;
   word-wrap: break-word;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  @include dots();
   &::after {
     content: "...";
   }
@@ -241,9 +242,7 @@ export default {
   padding-top: em(3);
   font-size: em(22);
   padding-left: em(8);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  @include dots();
 }
 .grid-date {
   grid-area: 1 / 3 / 1 / 5;
@@ -267,7 +266,92 @@ export default {
     margin-left: 5%;
   }
   .container {
-    margin: 0.5% 5% 0 5%;
+    margin: 0.5% 3.8% 0 5%;
+  }
+  .email-menu {
+    ul {
+      padding-left: 1%;
+      li {
+        &:nth-child(1) {
+          width: 15.8%;
+        }
+        &:nth-child(2) {
+          width: 26.7%;
+        }
+        &:nth-child(3) {
+          width: 48.5%;
+        }
+        &:nth-child(4) {
+          width: auto;
+        }
+        &::before {
+          content: none;
+        }
+        &::after {
+          width: em(20) !important;
+        }
+      }
+    }
+  }
+  .email-grid {
+    width: 100%;
+    height: em(55);
+    grid-template-columns: 0 15.8% 20% 6.2% 47% auto;
+    grid-template-rows: em(55);
+    padding: em(10) em(16) em(12) em(16);
+    &:hover {
+      cursor: pointer;
+      background-color: $selected-background-color;
+      color: $selected-font-color;
+      .date-attachment {
+        display: none;
+      }
+    }
+  }
+  .grid-checkbox {
+    display: block;
+    grid-area: 1 / 1 / 1 / 2;
+  }
+  .grid-icon {
+    display: none;
+  }
+  .grid-from {
+    grid-area: 1 / 2 / 1 / 3;
+    font-weight: 400;
+    font-size: em(20);
+  }
+  .grid-to {
+    grid-area: 1 / 3 / 1 / 4;
+    font-size: em(20);
+  }
+  .grid-badge {
+    grid-area: 1 / 4 / 1 / 5;
+    margin: 7% 15%;
+  }
+  .grid-subject {
+    grid-area: 1 / 5 / 1 / 6;
+    font-size: em(20);
+  }
+  .grid-date {
+    grid-area: 1 / 6 / 1 / 7;
+    font-weight: 600;
+    font-size: em(20);
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: relative;
+    span {
+      position: absolute;
+      left: em(32);
+      top: em(4);
+      color: $font-color;
+    }
+    .date-arrow {
+      display: none;
+    }
+    .date-attachment {
+      height: em(17);
+      padding: em(3) 0 0 em(3);
+    }
   }
 }
 </style>

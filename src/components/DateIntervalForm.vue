@@ -47,7 +47,6 @@ input {
   font: inherit;
   font-size: em(20);
   letter-spacing: em(0.2);
-  color: $selected-font-color;
   border-radius: em(8);
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
@@ -66,7 +65,6 @@ button {
   border-radius: em(8);
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  font: inherit;
   font-size: em(20);
   border: em(1) solid $border-color;
   &:focus {
