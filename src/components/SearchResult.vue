@@ -40,12 +40,7 @@
           </div>
           <div class="grid-subject">{{ email.subject }}</div>
           <div class="grid-date">
-            <img
-              v-if="email.attachment"
-              class="date-attachment"
-              src="../assets/icon_clip.svg"
-              alt="icon_clip"
-            />
+            <svg v-if="email.attachment" class="date-attachment" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13.93083 15"><title>icon_clip</title><path class="a" d="M6.799,3.6254A2.30522,2.30522,0,1,0,3.56718,6.85622l4.304,4.304a.5222.5222,0,0,0,.7385-.7385l-4.304-4.304c-.53586-.53586-.87743-1.33808-.23084-1.98466.64553-.64659,1.4488-.304,1.98466.23189L11.032,9.3364c1.90632,1.90841,2.38159,2.78793,1.24615,3.92441-1.149,1.148-2.367.86385-4.20121-.96935L2.367,6.57941C1.1741,5.38653.33845,3.43842,1.90633,1.87159c1.86141-1.86141,3.98708-.03134,4.59293.57555l5.11038,5.11142a.5222.5222,0,0,0,.7385-.7385L7.23776,1.70864C5.18625-.34288,2.86-.56223,1.16678,1.13308c-1.711,1.71-1.5261,4.196.4617,6.18484l5.711,5.711C7.96726,13.6567,9.31161,15,10.85756,15a3.01214,3.01214,0,0,0,2.16014-1.00173c2.07554-2.07658.15564-3.99857-1.24616-5.40141Z"/></svg>
             <span>{{ formatDateWrapper(email.date) }}</span>
             <img class="date-arrow" src="../assets/icon_arrow02.svg" alt="icon_arrow02" />
           </div>
@@ -195,6 +190,9 @@ export default {
   grid-template-columns: em(39) em(324) em(80) em(44);
   grid-template-rows: em(30) em(30) em(38);
   padding: em(14) em(16) em(12) em(16);
+  div {
+    @include dots();
+  }
 }
 .grid-checkbox {
   display: none;
@@ -206,19 +204,16 @@ export default {
 }
 .grid-from {
   grid-area: 1 / 2 / 1 / 3;
-  padding: em(2) 0;
+  padding: em(2) em(30) 0 0;
   font-size: em(18.9);
+  word-wrap: break-word;
   font-weight: 600;
 }
 .grid-to {
   grid-area: 2 / 2 / 2 / 4;
-  padding: em(2) 0;
+  padding: em(2) em(18) 0 0;
   font-size: em(18.9);
   word-wrap: break-word;
-  @include dots();
-  &::after {
-    content: "...";
-  }
 }
 .grid-badge {
   position: relative;
@@ -242,7 +237,6 @@ export default {
   padding-top: em(3);
   font-size: em(22);
   padding-left: em(8);
-  @include dots();
 }
 .grid-date {
   grid-area: 1 / 3 / 1 / 5;
@@ -256,6 +250,7 @@ export default {
     padding: em(5);
   }
   .date-attachment {
+    fill: $headings-font-color;
     width: auto;
     height: em(18);
     padding: em(8);
@@ -304,13 +299,16 @@ export default {
       background-color: $selected-background-color;
       color: $selected-font-color;
       .date-attachment {
-        display: none;
+        fill: $selected-font-color;
       }
     }
   }
   .grid-checkbox {
     display: block;
     grid-area: 1 / 1 / 1 / 2;
+    position: relative;
+    left: 0;
+    top: 0;
   }
   .grid-icon {
     display: none;
@@ -349,8 +347,9 @@ export default {
       display: none;
     }
     .date-attachment {
-      height: em(17);
-      padding: em(3) 0 0 em(3);
+      width: em(15.5);
+      height: em(20);
+      padding: em(2.5) 0 0 em(3);
     }
   }
 }
