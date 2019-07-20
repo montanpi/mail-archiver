@@ -24,13 +24,13 @@
           </li>
         </ul>
       </div>
-      <div class="email-grid" v-for="email in emails" :key="email.id">
-        <input
-          class="grid-checkbox"
-          type="checkbox"
-          v-bind:checked="ids.indexOf(email.id) !== -1"
-          @click="toggleSelected(email.id)"
-        />
+      <div
+        class="email-grid"
+        v-for="email in emails"
+        :key="email.id"
+        v-bind:class="{ selected: ids.indexOf(email.id) !== -1}"
+        @click.left.exact="toggleSelected(email.id)"
+      >
         <div class="grid-icon"></div>
         <div class="grid-from">{{ email.from }}</div>
         <div class="grid-to">{{ formatRecipients(email.to) }}</div>
@@ -79,7 +79,8 @@ export default {
   },
   data () {
     return {
-      ids: []
+      ids: [],
+      timeout: null
     }
   },
   computed: {
@@ -119,12 +120,17 @@ export default {
 @import "../scss/_variables.scss";
 @import "../scss/_functions.scss";
 @import "../scss/_mixins.scss";
+.selected {
+  background-color: $selected-background-color;
+}
 .inspect-container {
   position: fixed;
   overflow-y: auto;
   bottom: 0;
+  left: 0;
+  padding: 0 5%;
   height: 40vh;
-  width: 91.5%;
+  width: 90%;
   z-index: 9999;
   background-color: $inspect-background-color;
   border-top: em(2) solid $border-color;
@@ -207,23 +213,21 @@ export default {
 .email-grid {
   display: grid;
   box-sizing: border-box;
-  width: auto;
+  width: 100%;
   height: em(126);
   border-bottom: em(1) solid $border-color;
-  grid-template-columns: em(39) em(324) em(80) em(44);
+  grid-template-columns: 7.79% 61.476% 21.724% auto;
   grid-template-rows: em(30) em(30) em(38);
-  padding: em(14) em(16) em(12) em(16);
+  padding: em(14) 3.077% em(12) 3.077%;
   div {
     @include dots();
   }
 }
-.grid-checkbox {
-  display: none;
-}
 .grid-icon {
   grid-area: 1 / 1 / 3 / 2;
-  background: url("../assets/icon_mail_sp.svg") left em(13) center / em(16)
+  background: url("../assets/icon_mail_sp.svg") left 60% center / em(16)
     no-repeat;
+  max-width: em(38);
 }
 .grid-from {
   grid-area: 1 / 2 / 1 / 3;
@@ -279,7 +283,7 @@ export default {
     padding: em(8);
   }
 }
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 950px) {
   .search-results {
     margin-left: 4.9%;
   }
@@ -291,15 +295,19 @@ export default {
       padding-left: 1.1%;
       li {
         &:nth-child(1) {
+          min-width: em(209);
           width: 15.7%;
         }
         &:nth-child(2) {
+          min-width: calc(#{em(209)} + 6.2%);
           width: 26.8%;
         }
         &:nth-child(3) {
+          min-width: em(209);
           width: 48.6%;
         }
         &:nth-child(4) {
+          min-width: em(115);
           width: auto;
         }
         &::before {
@@ -314,7 +322,7 @@ export default {
   .email-grid {
     width: 100%;
     height: em(55);
-    grid-template-columns: 0 15.8% 20.3% 6.2% 47% auto;
+    grid-template-columns: minmax(em(209), 15.8%) minmax(em(209), 20.3%) 6.2% minmax(em(209), 47%) minmax(em(140), auto);
     grid-template-rows: em(55);
     padding: em(10) em(16) em(12) em(16);
     &:hover {
@@ -326,35 +334,28 @@ export default {
       }
     }
   }
-  .grid-checkbox {
-    display: block;
-    grid-area: 1 / 1 / 1 / 2;
-    position: relative;
-    left: 0;
-    top: 0;
-  }
   .grid-icon {
     display: none;
   }
   .grid-from {
-    grid-area: 1 / 2 / 1 / 3;
+    grid-area: 1 / 1 / 1 / 2;
     font-weight: 400;
     font-size: em(20);
   }
   .grid-to {
-    grid-area: 1 / 3 / 1 / 4;
+    grid-area: 1 / 2 / 1 / 3;
     font-size: em(20);
   }
   .grid-badge {
-    grid-area: 1 / 4 / 1 / 5;
+    grid-area: 1 / 3 / 1 / 4;
     margin: 7% 15%;
   }
   .grid-subject {
-    grid-area: 1 / 5 / 1 / 6;
+    grid-area: 1 / 4 / 1 / 5;
     font-size: em(20);
   }
   .grid-date {
-    grid-area: 1 / 6 / 1 / 7;
+    grid-area: 1 / 5 / 1 / 6;
     font-weight: 600;
     font-size: em(20);
     align-items: flex-start;

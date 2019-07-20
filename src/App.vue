@@ -34,6 +34,7 @@ body {
   font-family: sans-serif;
   color: $font-color;
   max-width: 1550px;
+  margin: 0 auto;
 }
 header {
   margin: em(28) 0 0 em(28);
@@ -41,7 +42,7 @@ header {
 main {
   margin-top: em(25);
 }
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 950px) {
   header {
     margin: em(42.1) 0 0 5%;
   }

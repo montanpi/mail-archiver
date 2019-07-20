@@ -39,6 +39,7 @@ form {
 input {
   height: em(38);
   width: em(182);
+  max-width: 45%;
   padding-top: em(2);
   padding-left: em(51);
   padding-bottom: 0;
@@ -73,7 +74,7 @@ button {
     width: em(20);
   }
 }
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 950px) {
   input {
     padding-right: 1.4%;
   }
