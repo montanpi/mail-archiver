@@ -38,7 +38,7 @@ export default new Vuex.Store({
       }
       if (newSort !== state.sort) {
         state.sort = newSort
-        state.order = 'asc'
+        state.order = 'desc'
       }
       switch (state.sort) {
         case 'from':

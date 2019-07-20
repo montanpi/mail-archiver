@@ -35,10 +35,10 @@ export default {
 @import "../scss/_functions.scss";
 @import "../scss/_mixins.scss";
 .email {
-  padding-top: em(10);
+  padding: em(20);
   border-bottom: em(1) solid $border-color;
   &:first-child {
-    padding-top: 0;
+    margin-top: em(30);
   }
   &:last-child {
     border-bottom: 0;
@@ -48,12 +48,14 @@ export default {
   float: left;
   font-size: em(17.3);
   @include dots();
+  max-width: 40%;
 }
 .subject {
   float: right;
   @include dots();
   font-size: em(17.3);
   font-weight: 600;
+  max-width: 60%;
 }
 .body {
   clear: both;
@@ -99,14 +101,13 @@ export default {
   }
 }
 .modal-body {
-  margin: em(20) 0;
   position: relative;
   img {
     cursor: pointer;
     position: absolute;
     top: 0;
-    right: 0;
-    width: em(17.3);
+    left: 0;
+    width: em(12);
     height: auto;
   }
 }
