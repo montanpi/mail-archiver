@@ -1,34 +1,16 @@
-# mail-archiver
-
 ## Project setup
+
+1. Pull in all dependencies with
+```bash
+$ yarn install
 ```
-yarn install
+2. Start the mock api server on `localhost:8000`
+```bash
+$ yarn mock:api
+```
+3. In another terminal, serve the project on `localhost:8080`
+```bash
+$ yarn serve
 ```
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
-
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Run your unit tests
-```
-yarn run test:unit
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+All the development process and testing took place on VSCode and Chromium Version 76.0    .3809.87 (Official Build) Arch Linux (64-bit)

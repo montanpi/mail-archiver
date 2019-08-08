@@ -1,13 +1,11 @@
 <template>
-  <div class="modal-body">
-    <img src="../assets/icon_cross.svg" alt="icon_cross" @click="$emit('close')">
+  <div>
     <div class="email" v-for="email in selectedEmails" :key="email.id">
       <div class="from">{{ email.from }}</div>
       <div class="subject">{{ email.subject}}</div>
       <div class="body" :class="{ 'dots': selectedEmails.length > 1 }">{{ email.body}}</div>
     </div>
   </div>
-  <!-- <button v-longpress="log" id="bt1" style="padding: 40px">Hold me for a while</button> -->
 </template>
 
 <script>
@@ -17,14 +15,6 @@ export default {
     selectedEmails: {
       type: Array,
       required: true
-    }
-  },
-  methods: {
-    log () {
-      document.getElementById('bt1').className = 'red'
-      console.log(window.navigator)
-      console.log(this.selectedIds)
-      window.navigator.vibrate(20)
     }
   }
 }
@@ -37,9 +27,6 @@ export default {
 .email {
   padding: em(20);
   border-bottom: em(1) solid $border-color;
-  &:first-child {
-    margin-top: em(30);
-  }
   &:last-child {
     border-bottom: 0;
   }
@@ -63,58 +50,5 @@ export default {
 }
 .dots {
   @include dots();
-}
-.red {
-  color: red;
-}
-.modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, .5);
-  display: table;
-  transition: opacity .3s ease;
-}
-.modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
-}
-.modal-container {
-  width: 90vw;
-  margin: 0 auto;
-  padding: em(30);
-  background-color: #fff;
-  border-radius: em(2);
-  box-shadow: 0 em(2) em(8) rgba(0, 0, 0, .33);
-  transition: all .3s ease;
-  position: relative;
-  img {
-    cursor: pointer;
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: em(17.3);
-    height: auto;
-  }
-}
-.modal-body {
-  position: relative;
-  img {
-    cursor: pointer;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: em(12);
-    height: auto;
-  }
-}
-.modal-enter {
-  opacity: 0;
-}
-.modal-leave-active {
-  opacity: 0;
 }
 </style>
