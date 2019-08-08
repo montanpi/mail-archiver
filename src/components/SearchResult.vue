@@ -56,7 +56,8 @@
         </div>
       </div>
       <div class="inspect-container" v-show="ids.length">
-        <inspect @close="resetIds" :selected-emails="selected" />
+        <img class="close-btn" src="../assets/icon_cross.svg" alt="icon_cross" @click="resetIds">
+        <inspect :selected-emails="selected" />
       </div>
     </div>
     <div v-else class="container">
@@ -123,21 +124,6 @@ export default {
 .selected {
   background-color: $selected-background-color;
 }
-.inspect-container {
-  position: fixed;
-  overflow-y: auto;
-  bottom: 0;
-  left: 0;
-  padding: 0 5%;
-  height: 40vh;
-  width: 90%;
-  z-index: 9999;
-  background-color: $inspect-background-color;
-  border-top: em(2) solid $border-color;
-}
-.inspect-margin {
-  margin-bottom: 40vh !important;
-}
 .search-results {
   margin-left: em(26);
   color: $headings-font-color;
@@ -177,7 +163,9 @@ export default {
     list-style: none;
     li {
       padding: 0;
-      cursor: pointer;
+      span {
+        cursor: pointer;
+      }
       &::before {
         content: "|";
         display: inline-block;
@@ -192,6 +180,7 @@ export default {
   }
   .order {
     &::after {
+      cursor: pointer;
       background: url("../assets/icon_arrow01.svg") right no-repeat;
       background-size: contain;
       content: "";
@@ -248,7 +237,7 @@ export default {
   background-color: $badge-color;
   padding: em(1);
   border-radius: em(4);
-  margin: em(3) em(8);
+  margin: em(3) em(6);
   height: em(18);
   width: em(26);
   span {
@@ -283,6 +272,29 @@ export default {
     padding: em(8);
   }
 }
+.close-btn {
+  cursor: pointer;
+  position: fixed;
+  bottom: calc(40vh - #{em(16)});;
+  left: em(4);
+  width: auto;
+  height: em(12);
+}
+.inspect-container {
+  position: fixed;
+  overflow-y: auto;
+  bottom: 0;
+  left: 0;
+  padding: 0 5%;
+  height: 40vh;
+  width: 90%;
+  z-index: 9999;
+  background-color: $inspect-background-color;
+  border-top: em(2) solid $border-color;
+}
+.inspect-margin {
+  margin-bottom: 40vh !important;
+}
 @media screen and (min-width: 950px) {
   .search-results {
     margin-left: 4.9%;
@@ -314,6 +326,7 @@ export default {
           content: none;
         }
         &::after {
+          cursor: pointer;
           width: em(20) !important;
         }
       }
@@ -348,7 +361,7 @@ export default {
   }
   .grid-badge {
     grid-area: 1 / 3 / 1 / 4;
-    margin: 7% 15%;
+    margin: 5% 10%;
   }
   .grid-subject {
     grid-area: 1 / 4 / 1 / 5;
@@ -375,6 +388,9 @@ export default {
       height: em(19);
       padding: em(2) 0 0 em(1.5);
     }
+  }
+  .close-btn {
+    left: 3.5%;
   }
 }
 </style>

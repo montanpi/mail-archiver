@@ -33,13 +33,17 @@ export default {
 <style lang="scss" scoped>
 @import "../scss/_variables.scss";
 @import "../scss/_functions.scss";
+@media screen and (max-width: 499px) {
+  input {
+    max-width: 45%;
+  }
+}
 form {
   display: flex;
 }
 input {
   height: em(38);
   width: em(182);
-  max-width: 45%;
   padding-top: em(2);
   padding-left: em(51);
   padding-bottom: 0;

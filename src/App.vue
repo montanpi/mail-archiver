@@ -25,13 +25,17 @@ export default {
 <style lang="scss">
 @import "./scss/variables.scss";
 @import "./scss/functions.scss";
+@font-face {
+  font-family: 'FreeSans';
+  src: url('assets/FreeSans.otf');
+}
 body {
   line-height: 1.25;
   margin: 0;
 }
 #app {
   // font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-family: sans-serif;
+  font-family: FreeSans;
   color: $font-color;
   max-width: 1550px;
   margin: 0 auto;
