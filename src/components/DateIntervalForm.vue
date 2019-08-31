@@ -1,5 +1,6 @@
 <template>
   <form action="#">
+    <!-- enter.prevent prevents submission of http form because we want to execute getMail -->
     <input v-model="interval" type="text" maxlength="23" @keyup.enter.prevent="getMail" />
     <button type="button" @click="getMail">
       <img src="../assets/icon_search.svg" alt="icon_search" />
@@ -17,8 +18,10 @@ export default {
   },
   methods: {
     getMail () {
+      // here we use $eventHub to comunicate between sibling components
       this.$eventHub.$emit('newSearch')
       this.$store.dispatch('getMail', {
+        // hardcoded URL and parameters
         baseURL: 'http://localhost:8000/emails',
         sort: 'date',
         order: 'desc',

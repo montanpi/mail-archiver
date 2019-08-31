@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <!-- semantic html tags -->
     <header>
       <dateIntervalForm />
     </header>
