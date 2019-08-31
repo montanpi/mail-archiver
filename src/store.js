@@ -22,6 +22,7 @@ export default new Vuex.Store({
         }
       })
         .then(res => {
+          // after resolved, a syncronous mutation is committed
           commit('setMail', res.data)
         })
         .catch(err => { window.alert(err) })
@@ -40,6 +41,7 @@ export default new Vuex.Store({
         state.sort = newSort
         state.order = 'desc'
       }
+      // once the sort property and order are set, the actual sorting takes place
       switch (state.sort) {
         case 'from':
           Vue.set(state, 'emails', sortBy('from', state.order, state.emails))
