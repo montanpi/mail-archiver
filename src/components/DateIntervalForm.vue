@@ -9,25 +9,32 @@
 </template>
 
 <script>
+import { clearTimeout, setTimeout } from 'timers';
 export default {
   name: 'DateIntervalForm',
   data () {
     return {
-      interval: '2019/12/31 - 2020/1/3'
+      interval: '2019/12/31 - 2020/1/3',
+      timeout: null
     }
   },
   methods: {
     getMail () {
-      // here we use $eventHub to comunicate between sibling components
-      this.$eventHub.$emit('newSearch')
-      this.$store.dispatch('getMail', {
-        // hardcoded URL and parameters
-        baseURL: 'http://localhost:8000/emails',
-        sort: 'date',
-        order: 'desc',
-        from: new Date(this.interval.split(' - ')[0]),
-        to: new Date(new Date(this.interval.split(' - ')[1]).getTime() + 86399999)
-      })
+      if (this.timeout !== null) {
+        clearTimeout(this.timeout)
+      }
+      this.timeout = setTimeout(() => {
+        // here we use $eventHub to comunicate between sibling components
+        this.$eventHub.$emit('newSearch')
+        this.$store.dispatch('getMail', {
+          // hardcoded URL and parameters
+          baseURL: 'http://localhost:8000/emails',
+          sort: 'date',
+          order: 'desc',
+          from: new Date(this.interval.split(' - ')[0]),
+          to: new Date(new Date(this.interval.split(' - ')[1]).getTime() + 86399999)
+        })
+      }, 500)
     }
   }
 }
