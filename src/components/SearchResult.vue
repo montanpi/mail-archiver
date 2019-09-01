@@ -4,23 +4,23 @@
       Results:
       <span>{{ emails.length }}</span>mail(s)
     </div>
-    <div v-if="emails.length" :class="{ 'inspect-margin': ids.length }" class="container">
+    <div v-if="emails.length" :class="{ 'inspect-margin': ids.length, 'no-select': !userSelection }" class="container">
       <div class="email-menu">
         <ul>
           <li :class="{ order: sort == 'from', desc: order == 'desc' }" @click="changeSort('from')">
-            <span>From</span>
+            <span tabindex="0" @keyup.enter="changeSort('from')">From</span>
           </li>
           <li :class="{ order: sort == 'to', desc: order == 'desc' }" @click="changeSort('to')">
-            <span>To</span>
+            <span tabindex="0" @keyup.enter="changeSort('to')">To</span>
           </li>
           <li
             :class="{ order: sort == 'subject', desc: order == 'desc' }"
             @click="changeSort('subject')"
           >
-            <span>Subject</span>
+            <span tabindex="0" @keyup.enter="changeSort('subject')">Subject</span>
           </li>
           <li :class="{ order: sort == 'date', desc: order == 'desc' }" @click="changeSort('date')">
-            <span>Date</span>
+            <span tabindex="0" @keyup.enter="changeSort('date')">Date</span>
           </li>
         </ul>
       </div>
@@ -28,8 +28,11 @@
         class="email-grid"
         v-for="email in emails"
         :key="email.id"
+        tabindex="0"
         v-bind:class="{ selected: ids.indexOf(email.id) !== -1}"
         @click.left.exact="toggleSelected(email.id)"
+        @keyup.enter="toggleSelected(email.id)"
+        @click.shift.exact="toggleShiftSelected(email.id)"
       >
         <div class="grid-icon"></div>
         <div class="grid-from">{{ email.from }}</div>
@@ -56,7 +59,7 @@
         </div>
       </div>
       <div class="inspect-container" v-show="ids.length">
-        <img class="close-btn" src="../assets/icon_cross.svg" alt="icon_cross" @click="resetIds">
+        <img tabindex="0" class="close-btn" src="../assets/icon_cross.svg" alt="icon_cross" @click="resetIds">
         <inspect :selected-emails="selected" />
       </div>
     </div>
@@ -72,6 +75,7 @@
 import { mapState, mapMutations } from 'vuex'
 import { formatDate } from '../utils/utils'
 import Inspect from './Inspect'
+import { Promise } from 'q'
 
 export default {
   name: 'SearchResult',
@@ -81,13 +85,17 @@ export default {
   data () {
     return {
       ids: [],
-      timeout: null
+      pivotId: null,
+      userSelection: true
     }
   },
   computed: {
     ...mapState(['emails', 'sort', 'order']),
     selected: function () {
       return this.emails.filter(cur => this.ids.indexOf(cur.id) !== -1)
+    },
+    all: function () {
+      return this.emails.map(cur => cur.id)
     }
   },
   created: function () {
@@ -107,10 +115,54 @@ export default {
       return formatDate(date)
     },
     toggleSelected (id) {
-      const idx = this.ids.indexOf(id)
-      idx === -1 ? this.ids.push(id) : this.ids.splice(idx, 1)
+      if (document.getSelection().toString() === '') {
+        this.toggleUserSelection()
+          .then(() => {
+            const idx = this.ids.indexOf(id)
+            if (idx === -1) {
+              this.pivotId = id
+              this.ids.push(id)
+            } else {
+              this.pivotId = null
+              this.ids.splice(idx, 1)
+            }
+          })
+          .then(this.toggleUserSelection())
+      }
+    },
+    toggleUserSelection () {
+      return Promise((resolve) => {
+        document.getSelection().removeAllRanges()
+        this.userSelection ? this.userSelection = false : this.userSelection = true
+        resolve()
+      })
+    },
+    toggleShiftSelected (id) {
+      if (this.pivotId === null) {
+        this.toggleSelected(id)
+      } else if (document.getSelection().toString() === '') {
+        this.toggleUserSelection()
+          .then(() => {
+            const pivot = this.all.indexOf(this.pivotId)
+            const selected = this.all.indexOf(id)
+            if (selected < pivot) {
+              this.ids = []
+              for (let i = selected; i <= pivot; i++) {
+                this.ids.push(this.emails[i].id)
+              }
+            // } else if (selected === pivot) {}
+            } else if (selected > pivot) {
+              this.ids = []
+              for (let i = pivot; i <= selected; i++) {
+                this.ids.push(this.emails[i].id)
+              }
+            }
+          })
+          .then(this.toggleUserSelection())
+      }
     },
     resetIds () {
+      this.pivotId = null
       this.ids = []
     }
   }
@@ -121,6 +173,9 @@ export default {
 @import "../scss/_variables.scss";
 @import "../scss/_functions.scss";
 @import "../scss/_mixins.scss";
+.no-select {
+  user-select: none;
+}
 .selected {
   background-color: $selected-background-color;
 }
@@ -224,12 +279,14 @@ export default {
   font-size: em(18.9);
   word-wrap: break-word;
   font-weight: 600;
+  height: em(30);
 }
 .grid-to {
   grid-area: 2 / 2 / 2 / 4;
   padding: em(2) em(18) 0 0;
   font-size: em(18.9);
   word-wrap: break-word;
+  height: em(30);
 }
 .grid-badge {
   position: relative;
@@ -253,6 +310,7 @@ export default {
   padding-top: em(3);
   font-size: em(22);
   padding-left: em(8);
+  height: em(30);
 }
 .grid-date {
   grid-area: 1 / 3 / 1 / 5;
@@ -260,6 +318,7 @@ export default {
   align-items: center;
   justify-content: flex-end;
   font-size: em(18.5);
+  height: em(30);
   .date-arrow {
     width: auto;
     height: em(8);

@@ -2,14 +2,14 @@
   <form action="#">
     <!-- enter.prevent prevents submission of http form because we want to execute getMail -->
     <input v-model="interval" type="text" maxlength="23" @keyup.enter.prevent="getMail" />
-    <button type="button" @click="getMail">
+    <button type="button" @click="getMail" tabindex="0">
       <img src="../assets/icon_search.svg" alt="icon_search" />
     </button>
   </form>
 </template>
 
 <script>
-import { clearTimeout, setTimeout } from 'timers';
+import { clearTimeout, setTimeout } from 'timers'
 export default {
   name: 'DateIntervalForm',
   data () {
@@ -81,9 +81,7 @@ button {
   border-bottom-left-radius: 0;
   font-size: em(20);
   border: em(1) solid $border-color;
-  &:focus {
-    outline: none;
-  }
+  cursor: pointer;
   img {
     width: em(20);
   }
