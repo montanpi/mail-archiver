@@ -1,9 +1,26 @@
-export function sortBy (field, order, arr) {
-  if (order === 'asc') {
-    return arr.sort((a, b) => (a[field].toString()).localeCompare(b[field].toString()))
-  } else {
-    return arr.sort((a, b) => (b[field].toString()).localeCompare(a[field].toString()))
+import * as R from 'ramda'
+
+export const compareBy = {
+  from: R.pipe(R.prop('from'), R.toLower),
+  to: R.pipe(
+    R.prop('to'),
+    R.head,
+    R.toLower),
+  subject: R.pipe(R.prop('subject'), R.toLower),
+  date: R.prop('date')
   }
+
+export function sortBy(state) {
+  const { sort, order, emails } = state
+  return R.equals(order, 'asc')
+    ? R.sortWith([
+      R.ascend(compareBy[sort]),
+      R.descend(compareBy.date)
+    ], emails)
+    : R.sortWith([
+      R.descend(compareBy[sort]),
+      R.descend(compareBy.date)
+    ], emails)
 }
 
 const month = {

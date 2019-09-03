@@ -42,26 +42,10 @@ export default new Vuex.Store({
         state.order = 'desc'
       }
       // once the sort property and order are set, the actual sorting takes place
-      switch (state.sort) {
-        case 'from':
-          Vue.set(state, 'emails', sortBy('from', state.order, state.emails))
-          break
-        case 'to':
-          Vue.set(state, 'emails', sortBy('to', state.order, state.emails))
-          break
-        case 'subject':
-          Vue.set(state, 'emails', sortBy('subject', state.order, state.emails))
-          break
-        case 'date':
-          Vue.set(state, 'emails', sortBy('date', state.order, state.emails))
-          break
-        case 'id':
-          Vue.set(state, 'emails', sortBy('id', state.order, state.emails))
-          break
-      }
+      Vue.set(state, 'emails', sortBy(state))
     },
-    setMail (state, emails) {
-      Vue.set(state, 'emails', emails)
+    setMail (state, payload) {
+      Vue.set(state, 'emails', payload)
     }
   }
 })
