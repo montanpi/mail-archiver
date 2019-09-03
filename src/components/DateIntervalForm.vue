@@ -24,10 +24,8 @@ export default {
         clearTimeout(this.timeout)
       }
       this.timeout = setTimeout(() => {
-        // here we use $eventHub to comunicate between sibling components
         this.$eventHub.$emit('newSearch')
         this.$store.dispatch('getMail', {
-          // hardcoded URL and parameters
           baseURL: 'http://localhost:8000/emails',
           sort: 'date',
           order: 'desc',

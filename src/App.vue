@@ -35,7 +35,6 @@ body {
   margin: 0;
 }
 #app {
-  // font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-family: FreeSans;
   color: $font-color;
   max-width: 1550px;
