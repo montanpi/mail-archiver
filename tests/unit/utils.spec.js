@@ -68,16 +68,16 @@ describe('formatAsTime', () => {
 
 describe('differentYearFrom', () => {
   it('return true if two dates are in different years', () => {
-    expect(differentYearFrom(new Date('2020-01-01T09:04:00.000Z'), new Date('2019-01-01T09:04:00.000Z'))).toBe(true)
-    expect(differentYearFrom(new Date('2019-01-01T09:04:00.000Z'), new Date('2020-01-01T09:04:00.000Z'))).toBe(true)
-    expect(differentYearFrom(new Date(2020, 0, 3, 12, 0), new Date('2020-01-02T15:20:00.000Z'))).toBe(false)
+    expect(differentYearFrom(new Date('2020-01-01T09:04:00.000Z'))(new Date('2019-01-01T09:04:00.000Z'))).toBe(true)
+    expect(differentYearFrom(new Date('2019-01-01T09:04:00.000Z'))(new Date('2020-01-01T09:04:00.000Z'))).toBe(true)
+    expect(differentYearFrom(new Date(2020, 0, 3, 12, 0))(new Date('2020-01-02T15:20:00.000Z'))).toBe(false)
   })
 })
 
 describe('sameDayAs', () => {
   it('return true if two dates are in the same day', () => {
-    expect(sameDayAs(new Date(2020, 0, 3, 12, 0), new Date('2020-01-02T15:20:00.000Z'))).toBe(true)
-    expect(sameDayAs(new Date(2020, 0, 3, 12, 0), new Date('2020-01-01T09:04:00.000Z'))).toBe(false)
+    expect(sameDayAs(new Date(2020, 0, 3, 12, 0))(new Date('2020-01-02T15:20:00.000Z'))).toBe(true)
+    expect(sameDayAs(new Date(2020, 0, 3, 12, 0))(new Date('2020-01-01T09:04:00.000Z'))).toBe(false)
   })
 })
 
