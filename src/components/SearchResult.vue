@@ -150,7 +150,6 @@ export default {
               for (let i = selected; i <= pivot; i++) {
                 this.ids.push(this.emails[i].id)
               }
-            // } else if (selected === pivot) {}
             } else if (selected > pivot) {
               this.ids = []
               for (let i = pivot; i <= selected; i++) {
