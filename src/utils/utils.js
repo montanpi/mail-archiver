@@ -46,31 +46,9 @@ export const formatAsYear = date => `${date.getFullYear()}/${date.getMonth() + 1
 export const formatAsDayMonth = date => `${month[date.getMonth()]} ${date.getDate().toString().padStart(2, '0')}`
 export const formatAsTime = date => `${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`
 
-export const differentYearFrom = R.curry(
-  (now, date) => R.gt(
-    Math.abs(
-      R.subtract(
-        fullYear(now),
-        fullYear(date))
-    ),
-    0)
-)
+export const differentYearFrom = now => date => R.gt(Math.abs(R.subtract(fullYear(now), fullYear(date))), 0)
 
-export function sameDayAs (now, date) {
-  return R.and(
-    R.lt(
-      R.subtract(
-        getTime(now),
-        getTime(date)
-      ),
-      86400000
-    ),
-    R.equals(
-      getDate(now),
-      getDate(date)
-    )
-  )
-}
+export const sameDayAs = now => date => R.and(R.lt(R.subtract(getTime(now), getTime(date)), 86400000), R.equals(getDate(now), getDate(date)))
 
 export function formatDate (dateStr) {
   const now = new Date(2020, 0, 3, 12, 0)
@@ -79,7 +57,7 @@ export function formatDate (dateStr) {
     differentYearFrom(now),
     formatAsYear,
     R.ifElse(
-      R.partial(sameDayAs, [now]),
+      sameDayAs(now),
       formatAsTime,
       formatAsDayMonth
     )
